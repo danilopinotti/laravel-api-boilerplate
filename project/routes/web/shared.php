@@ -14,5 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return 'ok';
 });
+
+Route::get('/health', \App\Http\Shared\Controllers\HealthController::class);
+

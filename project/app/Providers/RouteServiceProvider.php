@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/api/user';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -29,12 +29,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::prefix('api')
-                ->middleware('api')
-                ->group(base_path('routes/api.php'));
-
-            Route::middleware('web')
-                ->group(base_path('routes/web.php'));
+            $this->mapApiRoutes();
+            $this->registerRootWebRoute();
         });
     }
 
@@ -48,5 +44,30 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
+    }
+
+    /**
+     * Define the "api" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapApiRoutes()
+    {
+        Route::prefix('api/admin')
+            ->name('api.admin.')
+            ->middleware('api')
+            ->group(base_path('routes/api/admin.php'));
+
+        Route::prefix('api')
+            ->middleware(['api', 'auth:sanctum'])
+            ->group(base_path('routes/api/shared.php'));
+    }
+
+    protected function registerRootWebRoute()
+    {
+        Route::middleware(['web'])
+            ->group(base_path('routes/web/shared.php'));
     }
 }
