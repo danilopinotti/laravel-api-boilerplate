@@ -1,0 +1,43 @@
+version: '3'
+
+volumes:
+  app-postgres-data:
+    driver: local
+
+services:
+  web:
+    image: webdevops/nginx
+    volumes:
+      - ./project:/app
+      - ./environment/docker/web/site.conf:/opt/docker/etc/nginx/conf.d/site.conf
+
+  app:
+    build: environment/docker/app/.
+    volumes:
+      - ./project:/app
+    depends_on:
+      - web
+    environment:
+      - PHP_MEMORY_LIMIT=64M
+
+  postgres:
+    image: postgres:13
+    volumes:
+      - app-postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=app_dev
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=laraveldocker
+
+  redis:
+    image: redis:5.0
+    command: --appendonly no
+
+  worker:
+    build: environment/docker/worker/.
+    volumes:
+      - ./project:/app
+    environment:
+      - PHP_MEMORY_LIMIT=64M
