@@ -1,4 +1,4 @@
-FROM webdevops/php:8.0-alpine
+FROM webdevops/php:8.1-alpine
 
 LABEL maintainer="danilopinotti@hotmail.com"
 
