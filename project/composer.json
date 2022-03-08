@@ -11,9 +11,11 @@
         "laravel/horizon": "^5.9",
         "laravel/sanctum": "^2.14.1",
         "laravel/telescope": "^4.7",
-        "laravel/tinker": "^2.7"
+        "laravel/tinker": "^2.7",
+        "spatie/laravel-query-builder": "^5.0"
     },
     "require-dev": {
+        "roave/security-advisories": "dev-latest",
         "beyondcode/laravel-dump-server": "^1.8",
         "brianium/paratest": "^6.4",
         "fakerphp/faker": "^1.9.1",
@@ -28,7 +30,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Support/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
