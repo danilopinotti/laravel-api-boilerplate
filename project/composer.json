@@ -6,10 +6,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "beyondcode/laravel-dump-server": "^1.8",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.2",
         "laravel/horizon": "^5.9",
         "laravel/sanctum": "^2.14.1",
+        "laravel/telescope": "^4.7",
         "laravel/tinker": "^2.7"
     },
     "require-dev": {
@@ -40,7 +42,8 @@
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
-            "@php artisan horizon:publish --ansi"
+            "@php artisan horizon:publish --ansi",
+            "@php artisan telescope:publish --ansi"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""

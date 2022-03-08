@@ -15,7 +15,7 @@ abstract class TestCaseFeature extends BaseTestCase
         parent::setUp();
 
         $this->markTestSkipped();
-        
+
         $this->setupDatabase();
 
         $this->withHeaders([

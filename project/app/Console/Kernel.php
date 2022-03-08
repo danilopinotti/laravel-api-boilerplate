@@ -15,7 +15,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('horizon:snapshot')
+            ->everyFiveMinutes();
+
+        if ($this->app->environment('local')) {
+            $schedule->command('telescope:prune')
+                ->everyTwoHours();
+        }
     }
 
     /**
