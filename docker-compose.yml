@@ -5,23 +5,19 @@ volumes:
     driver: local
 
 services:
-  web:
-    image: webdevops/nginx
-    volumes:
-      - ./project:/app
-      - ./environment/docker/web/site.conf:/opt/docker/etc/nginx/conf.d/site.conf
-
   app:
-    build: environment/docker/app/.
+    image: webdevops/php-nginx:8.1-alpine
     volumes:
       - ./project:/app
-    depends_on:
-      - web
+    working_dir: /app
     environment:
+      - WEB_DOCUMENT_ROOT=/app/public
       - PHP_MEMORY_LIMIT=64M
+    ports:
+      - "80:80"
 
   postgres:
-    image: postgres:13
+    image: postgres:15
     volumes:
       - app-postgres-data:/var/lib/postgresql/data
     ports:
@@ -41,3 +37,8 @@ services:
       - ./project:/app
     environment:
       - PHP_MEMORY_LIMIT=64M
+
+  mailcatcher:
+    image: schickling/mailcatcher
+    ports:
+      - 1080:1080

@@ -3,6 +3,9 @@
 /public/storage
 /storage/*.key
 /vendor
+/.phpunit.cache
+/.idea
+/.vscode
 .env
 .env.backup
 .env.testing
@@ -12,5 +15,3 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/.idea
-/.vscode

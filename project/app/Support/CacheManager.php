@@ -65,9 +65,9 @@ class CacheManager
         callable $value,
         array $tags = []
     ): mixed {
-        $applicationCacheIsEnabled = config('cache.enable_application_cache');
+        $applicationCacheIsEnabled = config('cache.enable_application_cache', true);
 
-        if (!$applicationCacheIsEnabled) {
+        if (! $applicationCacheIsEnabled) {
             return value($value);
         }
 
@@ -99,6 +99,14 @@ class CacheManager
 
         return $this->getCache($tags)
             ->put($key, value($value), $ttl);
+    }
+
+    public function forget($key)
+    {
+        $key = (string) value($key);
+
+        return $this->getCache()
+            ->forget($key);
     }
 
     /**

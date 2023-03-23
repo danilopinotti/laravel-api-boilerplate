@@ -17,6 +17,13 @@ return [
 
     'default' => env('CACHE_DRIVER', 'file'),
 
+    /**
+     *  Habilita o cache externo da aplicação. Atualmente utiliza-se o redis.
+     *  Este tipo de cache é utilizado para armazenar informações em um prazo maior,
+     * onde pode ser compartilhado entre usuários.
+     */
+    'enable_application_cache' => env('APPLICATION_CACHE', true),
+
     /*
     |--------------------------------------------------------------------------
     | Cache Stores
@@ -105,6 +112,6 @@ return [
     |
     */
 
-    'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_cache_'),
+    'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_cache_'),
 
 ];

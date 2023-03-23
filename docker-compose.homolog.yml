@@ -1,15 +1,7 @@
 version: '3'
 
 services:
-  web:
-    ports:
-      - 8080:8080
-    restart: unless-stopped
-
   mailcatcher:
-    image: schickling/mailcatcher
-    ports:
-      - 1080:1080
     restart: unless-stopped
 
   app:
@@ -17,7 +9,7 @@ services:
 
   worker:
     restart: unless-stopped
-  
+
   postgres:
     restart: unless-stopped
 
