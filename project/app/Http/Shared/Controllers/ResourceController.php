@@ -14,7 +14,7 @@ class ResourceController extends BaseController
     {
         $allowedResourceMethods = ['index', 'store', 'show', 'update', 'destroy'];
 
-        if (!in_array($method, $allowedResourceMethods)) {
+        if (! in_array($method, $allowedResourceMethods)) {
             throw new \BadMethodCallException(
                 "Method [$method] is not allowed in Resource Controllers"
             );

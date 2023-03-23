@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
         $this->loadMorphMap();
         $this->loadMacros();
 
-        Model::preventLazyLoading(!app()->isProduction());
+        Model::preventLazyLoading(! app()->isProduction());
     }
 
     private function loadMorphMap()
@@ -57,6 +57,7 @@ class AppServiceProvider extends ServiceProvider
             foreach (Arr::wrap($criteria) as $criterion) {
                 $criterion->apply($this);
             }
+
             return $this;
         });
     }

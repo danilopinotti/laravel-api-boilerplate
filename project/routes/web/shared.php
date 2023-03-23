@@ -16,4 +16,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', fn () => ['status' => 'success']);
 
 Route::get('/health', \App\Http\Shared\Controllers\HealthController::class);
-

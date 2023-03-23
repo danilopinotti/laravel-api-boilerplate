@@ -23,6 +23,7 @@
         "beyondcode/laravel-dump-server": "^1.9",
         "brianium/paratest": "^7.1",
         "fakerphp/faker": "^1.21.0",
+        "laravel/pint": "^1.7",
         "laravel/sail": "^1.21.2",
         "mockery/mockery": "^1.5.1",
         "nunomaduro/collision": "^7.3.2",
@@ -46,6 +47,9 @@
         }
     },
     "scripts": {
+        "stylefix": [
+            "./vendor/bin/pint"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"

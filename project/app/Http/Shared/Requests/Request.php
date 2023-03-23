@@ -36,7 +36,7 @@ class Request extends BaseFormRequest
      */
     private function registerCustomRule(string $method)
     {
-        if (!preg_match('/^validate.+/', $method)) {
+        if (! preg_match('/^validate.+/', $method)) {
             return;
         }
 

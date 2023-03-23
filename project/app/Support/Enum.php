@@ -15,7 +15,7 @@ abstract class Enum
         }
 
         $calledClass = get_called_class();
-        if (!array_key_exists($calledClass, self::$constCacheArray)) {
+        if (! array_key_exists($calledClass, self::$constCacheArray)) {
             $reflect = new \ReflectionClass($calledClass);
             self::$constCacheArray[$calledClass] = $reflect->getConstants();
         }
@@ -42,18 +42,20 @@ abstract class Enum
         }
 
         $keys = array_map('strtolower', array_keys($constants));
+
         return in_array(strtolower($name), $keys);
     }
 
     public static function isValidValue($value, $strict = true): bool
     {
         $values = array_values(self::getConstants());
+
         return in_array($value, $values, $strict);
     }
 
     public static function validateValue($value, $strict = true): bool
     {
-        if (!self::isValidValue($value, $strict)) {
+        if (! self::isValidValue($value, $strict)) {
             throw new InvalidEnumValueException("Invalid enum value [$value].");
         }
 

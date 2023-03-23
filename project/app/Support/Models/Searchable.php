@@ -41,7 +41,7 @@ trait Searchable
             ->filter()
             ->each(function ($term) use ($searchBy, $query) {
                 foreach (array_filter($searchBy) as $key => $field) {
-                    (!$query->getConnection() instanceof PostgresConnection)
+                    (! $query->getConnection() instanceof PostgresConnection)
                         ? $query->orWhereRaw("{$field} LIKE ?", "%$term%")
                         : $query->orWhereRaw("CAST({$field} as VARCHAR) ILIKE ?", "%$term%");
                 }

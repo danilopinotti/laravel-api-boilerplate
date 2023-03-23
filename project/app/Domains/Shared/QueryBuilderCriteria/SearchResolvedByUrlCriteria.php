@@ -20,7 +20,7 @@ class SearchResolvedByUrlCriteria extends Criterion
 
     public function apply($queryBuilder)
     {
-        if (!$query = request('query')) {
+        if (! $query = request('query')) {
             return $queryBuilder;
         }
 

@@ -3,43 +3,59 @@ name: Tests (PHP)
 on:
   push:
     branches:
-    - master
+      - master
   pull_request:
-    branches:
-    - develop
-    - release-candidate
-    - hotfixes
-    - master
+    paths:
+      - '**.php'
+      - 'phpunit.xml'
+      - '.github/workflows/tests.yml'
+      - 'composer.lock'
 
 jobs:
   tests:
     name: Run tests
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
+    services:
+      postgres:
+        image: postgres:10-alpine
+        env:
+          POSTGRES_DB: app_dev
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: laraveldocker
+        ports:
+          - 5432/tcp
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
 
+    steps:
+      - uses: actions/checkout@v3
       - name: Cache composer dependencies
-        uses: actions/cache@v1
+        uses: actions/cache@v3
+        id: composer-cache
         with:
           path: ./project/vendor
-          key: composer-${{ hashFiles('./project/composer.lock') }}
+          key: ${{ runner.os }}-build-${{ hashFiles('**/composer.lock') }}
 
       - name: Run composer install
-        run: composer install -n --prefer-dist
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install -n --prefer-dist --no-progress --no-interaction
         working-directory: ./project
-        env:
-          APP_ENV: testing
 
       - name: Prepare Laravel Application
         working-directory: ./project
         run: |
-          cp .env.testing.example .env
+          cp .env.testing .env
           php artisan key:generate
-      - name: Run tests
+
+      - name: Run tests (Unit)
         working-directory: ./project
-        run: ./vendor/bin/phpunit
+        run: php artisan test --parallel --testsuite Unit
+
+      - name: Run tests (Feature)
+        working-directory: ./project
+        run: php artisan test --parallel --testsuite Feature
         env:
-          APP_ENV: testing
+          DB_HOST: localhost
+          DB_PORT: ${{ job.services.postgres.ports[5432] }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@master

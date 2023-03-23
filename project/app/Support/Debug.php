@@ -43,7 +43,7 @@ class Debug
         $handledBindings = array_map(function ($binding) {
             return (is_numeric($binding))
                 ? $binding
-                : '\''.str_replace(['\\', "'"], ['\\\\', "\'"], $binding).'\'';
+                : '\'' . str_replace(['\\', "'"], ['\\\\', "\'"], $binding) . '\'';
         }, $queryBuilder->getConnection()
             ->prepareBindings($queryBuilder->getBindings()));
 

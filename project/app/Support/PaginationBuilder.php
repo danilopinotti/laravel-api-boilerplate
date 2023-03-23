@@ -12,6 +12,7 @@ class PaginationBuilder extends QueryBuilder implements Responsable
     const PER_PAGE_DEFAULT = 20;
 
     private $perPage = self::PER_PAGE_DEFAULT;
+
     private $resource;
 
     /**
@@ -42,6 +43,7 @@ class PaginationBuilder extends QueryBuilder implements Responsable
     public function perPage(int $perPage): self
     {
         $this->perPage = $perPage;
+
         return $this;
     }
 
@@ -73,6 +75,7 @@ class PaginationBuilder extends QueryBuilder implements Responsable
     public function resource($resource)
     {
         $this->resource = $resource;
+
         return $this;
     }
 

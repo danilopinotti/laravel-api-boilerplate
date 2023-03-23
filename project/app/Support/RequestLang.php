@@ -8,7 +8,7 @@ class RequestLang
 {
     public static function getLocaleByHttpAcceptHeader($httpAcceptLanguagesHeader): string
     {
-        if (!$httpAcceptLanguagesHeader) {
+        if (! $httpAcceptLanguagesHeader) {
             return '';
         }
 

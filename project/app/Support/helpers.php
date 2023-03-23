@@ -2,8 +2,7 @@
 /**
  * All files in this folder will be included in the application.
  */
-
-if (!function_exists('with_error')) {
+if (! function_exists('with_error')) {
     /**
      *  Caso exista algum erro para o campo passado como parâmetro, é retornada
      * a classe 'form-control-danger'.
@@ -24,7 +23,7 @@ if (!function_exists('with_error')) {
     }
 }
 
-if (!function_exists('mask')) {
+if (! function_exists('mask')) {
     /**
      *  Aplica uma máscara à uma string.
      *
@@ -44,19 +43,19 @@ if (!function_exists('mask')) {
     }
 }
 
-if (!function_exists('pagination')) {
+if (! function_exists('pagination')) {
     /**
      * Retorna uma instância do builder de paginação.
      *
      * @return \App\Support\PaginationBuilder
      */
-    function pagination($subject): \App\Support\PaginationBuilder
+    function pagination($subject): App\Support\PaginationBuilder
     {
         return \App\Support\PaginationBuilder::for($subject);
     }
 }
 
-if (!function_exists('current_user')) {
+if (! function_exists('current_user')) {
     /**
      * Retorna uma instância do usuário corrente.
      *
@@ -68,7 +67,7 @@ if (!function_exists('current_user')) {
     }
 }
 
-if (!function_exists('apply_params')) {
+if (! function_exists('apply_params')) {
     /**
      * Aplica argumentos em parâmetros de uma string
      *
@@ -76,12 +75,13 @@ if (!function_exists('apply_params')) {
      */
     function apply_params(string $string, array $params, $before = ':', $after = '')
     {
-        $regex = '/'.$before.'[a-z_]+'.$after.'/';
+        $regex = '/' . $before . '[a-z_]+' . $after . '/';
+
         return preg_replace_array($regex, $params, $string);
     }
 }
 
-if (!function_exists('in_production')) {
+if (! function_exists('in_production')) {
     /**
      * Retorna se a aplicação está em produção.
      *
@@ -90,11 +90,12 @@ if (!function_exists('in_production')) {
     function in_production()
     {
         $actualEnv = config('app.env', 'local');
-        return (\Illuminate\Support\Str::startsWith($actualEnv, 'prod'));
+
+        return \Illuminate\Support\Str::startsWith($actualEnv, 'prod');
     }
 }
 
-if (!function_exists('milliseconds')) {
+if (! function_exists('milliseconds')) {
     /**
      * Retorna o timestamp atual em milisegundos
      *
@@ -103,11 +104,12 @@ if (!function_exists('milliseconds')) {
     function milliseconds()
     {
         $microTime = explode(' ', microtime());
+
         return ((int) $microTime[1]) * 1000 + ((int) round($microTime[0] * 1000));
     }
 }
 
-if (!function_exists('stress')) {
+if (! function_exists('stress')) {
     /**
      * Retorna o tempo, em milisegundos, que um método é executado.
      *
@@ -122,7 +124,7 @@ if (!function_exists('stress')) {
     }
 }
 
-if (!function_exists('is_valid_url')) {
+if (! function_exists('is_valid_url')) {
     /**
      * Validate if param is a valid URL;
      *
@@ -135,7 +137,7 @@ if (!function_exists('is_valid_url')) {
     }
 }
 
-if (!function_exists('cache_manager')) {
+if (! function_exists('cache_manager')) {
     /**
      *  Resolve o resultado de uma chave de cache e retorna seu valor. Caso chamado
      * sem nenhum argumento, retorna uma instancia de \App\Helpers\CacheManager.
