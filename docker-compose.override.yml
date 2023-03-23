@@ -1,12 +1,16 @@
 version: '3'
 
 services:
+  postgres:
+    ports:
+      - "5432:5432"
+
   postgres-test:
-    image: postgres:13
-    environment:
-      - POSTGRES_DB=app_dev
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=laraveldocker
+    extends:
+      file: docker-compose.yml
+      service: postgres
+    tmpfs:
+      - /var/lib/postgresql/data
 
   redis:
     ports:

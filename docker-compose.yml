@@ -17,11 +17,9 @@ services:
       - "80:80"
 
   postgres:
-    image: postgres:15
+    image: postgres:15-alpine
     volumes:
       - app-postgres-data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
     environment:
       - POSTGRES_DB=app_dev
       - POSTGRES_USER=postgres
