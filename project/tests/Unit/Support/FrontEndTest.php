@@ -31,6 +31,24 @@ class FrontEndTest extends TestCaseUnit
         $this->assertEquals('http://tests.local/example/1/bar/2', $result);
     }
 
+    public function test_should_build_url_when_route_has_more_parameters_and_append_query_strings()
+    {
+        $this->registerRoute('example.multiple', '/example/{id}/bar');
+
+        $result = FrontEnd::route('example.multiple', [
+            'id' => 1,
+            'token' => 'teste',
+        ]);
+
+        $this->assertEquals('http://tests.local/example/1/bar?token=teste', $result);
+        $result = FrontEnd::route('example.multiple', [
+            'id' => 1,
+            'token' => 'teste',
+            'token2' => 'teste2',
+        ]);
+        $this->assertEquals('http://tests.local/example/1/bar?token=teste&token2=teste2', $result);
+    }
+
     public function test_should_fail_when_template_not_found()
     {
         $this->expectExceptionMessage('FrontEnd route [example] does not exists');
